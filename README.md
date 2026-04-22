@@ -80,3 +80,6 @@ Out of scope for the initial version:
 - Full Microsoft 365 security integration
 
 These areas are modeled but not automated.
+
+- Supports multiple representation profiles (future capability)
+- Includes architecture coverage validation (planned)
