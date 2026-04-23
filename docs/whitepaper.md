@@ -137,77 +137,74 @@ signal:
 ```
 This encoding is not intended for direct human reading. It is the canonical source from which documents, IaC skeletons, and coverage reports are generated.
 
-Scope Definition for Initial Implementation
+## Scope Definition for Initial Implementation
+
 To ensure feasibility and maintain momentum, the initial implementation scope is intentionally limited.
 
 The first version of the system will include only Terraform-manageable components.
 
-Included:
+**Included:**
 
-Azure resources
+- Azure resources
+- Azure Policy
+- Management groups
+- RBAC
+- Core security controls
 
-Azure Policy
+**Excluded (modeled but not automated):**
 
-Management groups
+- Conditional Access
+- PIM
+- Entitlement Management
+- Graph API configurations
+- Microsoft 365 security
 
-RBAC
+These elements should still be represented in the architecture model, but marked as `external_control`, `manual_implementation_required`, or `not_yet_automated`. This allows the model to remain broader than the first execution layer without forcing early implementation complexity.
 
-Core security controls
+The initial implementation will focus on **consistency checking (model ↔ Terraform)** before adding full IaC generation. Generating a Terraform skeleton from the model is a secondary goal. The primary value proposition is detecting drift and ensuring architectural intent is reflected in implementation. This ordering reduces risk and delivers working validation earlier.
 
-Excluded (modeled but not automated):
+## Relationship with Existing Microsoft Capabilities
 
-Conditional Access
-
-PIM
-
-Entitlement Management
-
-Graph API configurations
-
-Microsoft 365 security
-
-These elements should still be represented in the architecture model, but marked as external_control, manual_implementation_required, or not_yet_automated. This allows the model to remain broader than the first execution layer without forcing early implementation complexity.
-
-The initial implementation will focus on consistency checking (model ↔ Terraform) before adding full IaC generation. Generating a Terraform skeleton from the model is a secondary goal. The primary value proposition is detecting drift and ensuring architectural intent is reflected in implementation. This ordering reduces risk and delivers working validation earlier.
-
-Relationship with Existing Microsoft Capabilities
 The concept does not attempt to replace existing Microsoft security and governance tools, but rather to integrate and extend them.
 
-Tool	Role
-Azure Policy	Enforcement and compliance evaluation
-Microsoft Defender for Cloud	Posture assessment and recommendations
-Microsoft Cloud Security Benchmark	Structured mappings of security controls
-ISO 27001, NIST	Existing policy sets (regulatory compliance)
-These tools provide control definitions, compliance evaluation, and recommendations. They do not provide architectural intent, decision rationale, traceability from risk to implementation, or a unified model linking architecture to IaC.
+| Tool | Role |
+| :--- | :--- |
+| Azure Policy | Enforcement and compliance evaluation |
+| Microsoft Defender for Cloud | Posture assessment and recommendations |
+| Microsoft Cloud Security Benchmark | Structured mappings of security controls |
+| ISO 27001, NIST | Existing policy sets (regulatory compliance) |
+
+These tools provide control definitions, compliance evaluation, and recommendations. They do **not** provide architectural intent, decision rationale, traceability from risk to implementation, or a unified model linking architecture to IaC.
 
 The proposed solution therefore introduces a higher-level architecture layer that references existing controls, maps them to requirements and constraints, connects them to implementation through Terraform, and provides traceability across risk, control, constraint, implementation, and validation. Instead of duplicating functionality, the system acts as an orchestrator and model layer above existing tools.
 
-Integration Strategy
+## Integration Strategy
+
 The initial implementation path is:
 
-Architecture Model → Terraform (primary execution layer) → Azure Policy & Defender for Cloud (enforcement and validation layers).
+> Architecture Model → Terraform (primary execution layer) → Azure Policy & Defender for Cloud (enforcement and validation layers).
 
 A future extension may introduce Microsoft Graph or other APIs for identity and governance domains that are not yet automated. This phased approach enables early validation of the core concept while keeping the initial implementation realistic.
 
-Strategic Value
+## Strategic Value
+
 By leveraging existing Microsoft capabilities and focusing on the missing architectural layer, the solution avoids duplication of existing tooling, enhances visibility and traceability, bridges the gap between design and implementation, and creates a path toward a broader multi-cloud architecture model.
 
-Cross-organizational architecture handover. When AaC delivers an architecture to a client, the client receives not only documents but also the canonical model (or a profile-rendered view). The client can continue evolving the architecture in their own tooling, or re-import future changes from AaC. The model becomes a transferable asset, not a static deliverable.
+- **Cross-organizational architecture handover.** When AaC delivers an architecture to a client, the client receives not only documents but also the canonical model (or a profile-rendered view). The client can continue evolving the architecture in their own tooling, or re-import future changes from AaC. The model becomes a transferable asset, not a static deliverable.
 
-Subcontractor integration. A security specialist receives only the security profile of the model. After completing their work, they return updates (in the same canonical format or a subset). The system merges these updates into the master model without manual re-entry.
+- **Subcontractor integration.** A security specialist receives only the security profile of the model. After completing their work, they return updates (in the same canonical format or a subset). The system merges these updates into the master model without manual re-entry.
 
-Methodological independence. The same architecture can be rendered as TOGAF architecture for an enterprise architect, as CAF architecture for a cloud governance lead, and as Company internal HLD for the delivery team — all from one model. This breaks the current lock-in where choosing a methodology forces a specific document template.
+- **Methodological independence.** The same architecture can be rendered as TOGAF architecture for an enterprise architect, as CAF architecture for a cloud governance lead, and as Company internal HLD for the delivery team — all from one model. This breaks the current lock-in where choosing a methodology forces a specific document template.
 
-Non-goals
-Not a replacement for Azure Policy or Defender.
+## Non-goals
 
-Not a full compliance platform.
+- Not a replacement for Azure Policy or Defender.
+- Not a full compliance platform.
+- Not a full IaC generator (initially).
+- Not tied to a single vendor or framework.
 
-Not a full IaC generator (initially).
+## Conclusion
 
-Not tied to a single vendor or framework.
-
-Conclusion
 This concept proposes a shift from architecture as static documentation to architecture as a living, structured, and executable model.
 
 The initial scope is deliberately constrained to maximize execution success. Existing Microsoft tools are treated as foundational building blocks, while the proposed solution adds the missing architectural intelligence layer that connects intent, control, and implementation.
