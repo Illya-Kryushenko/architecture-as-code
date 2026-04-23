@@ -1,5 +1,5 @@
 import json
-from .model import ArchitectureModel
+from model import ArchitectureModel
 
 def check_model_against_terraform_state(model: ArchitectureModel, state_path: str) -> bool:
     with open(state_path) as f:
