@@ -1,0 +1,33 @@
+# Example: Zero Trust Privileged Access Model
+# This is a canonical architecture fragment, not documentation.
+
+risks:
+  - id: R-001
+    name: Privilege escalation via compromised admin endpoint
+    control_objective: Ensure privileged access originates only from trusted and managed devices
+
+controls:
+  - id: C-001
+    name: Privileged Access Workstation (PAW)
+    type: TechnicalControl
+    constraints:
+      - id: CON-001
+        description: Admin roles require compliant devices
+      - id: CON-002
+        description: Access from non-managed devices must be blocked
+
+implementation_mapping:
+  - control_id: C-001
+    resource_type: azurerm_windows_virtual_machine
+    tags:
+      role: PAW
+  - control_id: C-001
+    resource_type: azurerm_conditional_access_policy
+    parameters:
+      grant_controls:
+        - requireCompliantDevice
+
+signals:
+  - source: Entra ID sign-in logs
+  - source: Conditional Access logs
+  - source: Defender alerts
