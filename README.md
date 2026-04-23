@@ -61,7 +61,7 @@ The first practical scope is:
 
 ## Specification
 
-The AaC model specification is in [`/specification/v1/`](specification/v1/).
+The AaC model specification is in [`docs/architecture-model.md`](docs/architecture-model.md).
 
 - [JSON Schema](specification/v1/schema.json) – defines the structure of the architecture model
 - [Example model](examples/basic-model.yaml) – illustrates risks, controls, and implementation mappings
