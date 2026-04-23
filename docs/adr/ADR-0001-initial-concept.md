@@ -24,8 +24,7 @@ Cloud architecture currently suffers from a structural disconnect between:
 This makes it difficult to preserve intent, validate compliance with architectural constraints, and detect drift.
 
 ## Decision
-
-Explore a concept of Executable Architecture that transforms architectural guidance, initially based on Microsoft CAF and Zero Trust, into structured templates and architecture models linked to implementation.
+Explore the concept of **Architecture as Code (AaC)** that transforms architectural guidance, initially based on Microsoft CAF and Zero Trust, into structured templates and architecture models linked to implementation.
 
 ## Initial Scope
 
