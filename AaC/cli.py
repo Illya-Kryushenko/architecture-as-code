@@ -10,7 +10,7 @@ def main():
 
     model = load_model(args.model)
     success = check_model_against_terraform_state(model, args.state)
-    exit(0 if success else 1)
-
+    raise SystemExit(0 if success else 1)
+    
 if __name__ == "__main__":
     main()
