@@ -31,7 +31,7 @@ class ArchitectureModel:
 def load_model(path: str) -> ArchitectureModel:
     with open(path) as f:
         data = yaml.safe_load(f)
-    # YAML ti dataclass (simplified)
+    # YAML dataclass (simplified)
     risks = [Risk(**r) for r in data.get("risks", [])]
     controls = [Control(**c) for c in data.get("controls", [])]
     mappings = [ImplementationMapping(**m) for m in data.get("implementation_mapping", [])]
