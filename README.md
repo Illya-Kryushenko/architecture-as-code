@@ -49,7 +49,7 @@ The first practical scope is:
 - Security Architecture as the first implementation domain
 - human-readable architecture documents generated from a structured model
 - support for both canonical architecture data and human commentary
-- later validation against IaC and deployed state
+- validation against IaC and deployed state (working prototype: resource existence check)
 
 ## Guiding Principles
 
@@ -59,16 +59,52 @@ The first practical scope is:
 - Commentary explains architecture
 - Commentary must not replace canonical architectural facts
 
+## Specification
+
+The AaC model specification is in [`/specification/v1/`](specification/v1/).
+
+- [JSON Schema](specification/v1/schema.json) – defines the structure of the architecture model
+- [Example model](examples/basic-model.yaml) – illustrates risks, controls, and implementation mappings
+- [Terraform state example](examples/example.tfstate) – used for validation
+
+The specification is versioned and open to change based on community feedback.
+
+## Call to Action
+
+We invite everyone to:
+
+1. **Try the prototype** – clone, run against your Terraform state
+2. **Open issues** – what works, what doesn't, what's missing
+3. **Propose changes** to the model schema (`/specification/v1/`)
+4. **Contribute code** – validator, Terraform parser, document generator, Azure API integration
+5. **Adopt AaC** in your projects (even as an experiment)
+
+This project aims to become an **Open Standard** for Architecture as Code, not a vendor-specific tool. We want to build a community around it.
+
+All contributions are welcome: docs, examples, code, use cases.
+
 ## Repository Scope
 
 This repository currently contains:
 
 - concept notes
 - initial ADRs
-- evolving structure for an executable architecture model
+- evolving structure for an Architecture as Code model
+- **working prototype** (validator)
+- **minimal specification** v1 (JSON schema)
 
 ## Status
-Early concept exploration.
+
+**Working prototype** – the validator can:
+- Parse an AaC model (YAML)
+- Parse a Terraform state file (JSON)
+- Check that resources defined in the model exist in the state
+- Output PASS/FAIL for each control
+
+See [`examples/basic-model.yaml`](examples/basic-model.yaml) and run:
+```bash
+PYTHONPATH=. python -m aac.cli --model examples/basic-model.yaml --state examples/example.tfstate
+```
 
 ## Scope (Initial Version)
 
@@ -83,3 +119,14 @@ These areas are modeled but not automated.
 
 - Supports multiple representation profiles (future capability)
 - Includes architecture coverage validation (planned)
+
+## Contributing
+
+We follow the **Open Standard** model, not a single-vendor roadmap.
+
+To contribute:
+1. Open an issue to discuss the change
+2. Fork the repository
+3. Submit a pull request
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for details (coming soon).
