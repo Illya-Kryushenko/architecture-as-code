@@ -1,6 +1,8 @@
 # Architecture as Code (AaC) for CAF and Zero Trust
 *A proposal for an Open Standard*
 
+> **For full whitepaper with representation profiles, drift detection, and detailed examples, see [Whitepaper](whitepaper.md).**
+
 ## Core hypothesis
 
 It should be possible to transform architecture from descriptive guidance into a structured, machine-readable, and partially enforceable model.
