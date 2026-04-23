@@ -23,5 +23,12 @@ Ensure privileged access originates only from trusted devices.
 - Intune compliance policies
 - PIM role activation
 
+## Signal (optional)
+
 ## Commentary
 Break-glass accounts are excluded and monitored separately.
+
+## See also
+
+- [Full AaC model example](../examples/basic-model.yaml)
+- [Architecture model specification](../specification/v1/schema.json)
