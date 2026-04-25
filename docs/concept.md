@@ -29,7 +29,7 @@ The first focus area is Security Architecture because it provides:
 
 ## Initial chain
 
-A central chain in the model is:
+A central conceptual chain in the model is:
 
 Risk → Control Objective → Control → Implementation → Signal
 
