@@ -10,11 +10,8 @@ A potential threat or vulnerability that could compromise the system.
 **Fields:**
 - `id` – unique identifier (e.g., R-001)
 - `name` – short description
-- `control_objective` – high-level mitigation goal (descriptive)
+- `control_objective` – high‑level goal that, if achieved, mitigates the risk (conceptually a Control Objective, but stored on the risk for simplicity).
 - `controls` – list of controls that address this risk
-
-### Control Objective
-A high-level goal that, if achieved, mitigates the risk.
 
 ### Control
 A specific technical or procedural mechanism that implements the control objective.
@@ -78,8 +75,7 @@ The model includes multiple controls linked to the same risk (C-001 to C-004), d
 
 ## Relationships
 
-- A **Risk** is mitigated by one or more **Control Objectives** (conceptual relationship).
-- A **Control Objective** is implemented by one or more **Controls** (conceptual relationship).
+- A **Risk** is associated with a control_objective, which is conceptually implemented by one or more **Controls**.
 
 - In the current model, **Controls are the primary link between risks and implementation**.
 
