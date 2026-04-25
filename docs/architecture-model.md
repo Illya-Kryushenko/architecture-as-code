@@ -66,7 +66,7 @@ The example implements the following chain:
 ↓  
 **Validation:** Check that these resources exist in Terraform state and match required tags and parameters
 
-**Current prototype coverage:** Only resource existence for `azurerm_windows_virtual_machine` is implemented. Conditional Access policy check is modeled but not yet validated.
+**Current prototype coverage:** The current prototype validates Terraform-managed resources against the model using resource type, tags, and selected parameters. Some identity-layer controls such as Conditional Access may be modeled but remain outside the observable scope of the provided Terraform state.
 
 The model includes multiple controls linked to the same risk (C-001 to C-004), demonstrating different validation outcomes:
 
