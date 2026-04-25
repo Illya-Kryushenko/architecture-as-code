@@ -74,7 +74,7 @@ We invite everyone to:
 
 1. **Try the prototype** – clone, run against your Terraform state
 2. **Open issues** – what works, what doesn't, what's missing
-3. **Propose changes** to the model schema (`/specification/v1/`)
+3. **Propose changes** to the model schema in [`docs/architecture-model.md`](docs/architecture-model.md)
 4. **Contribute code** – validator, Terraform parser, document generator, Azure API integration
 5. **Adopt AaC** in your projects (even as an experiment)
 
