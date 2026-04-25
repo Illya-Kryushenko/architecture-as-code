@@ -110,7 +110,7 @@ This repository contains:
 - producing validation results through a simple CLI
 
 ### Not yet implemented
-- formal risk-to-control coverage analysis
+- signal-informed risk coverage analysis
 - signal-based validation
 - representation profile rendering
 - validation beyond the provided Terraform state scope
