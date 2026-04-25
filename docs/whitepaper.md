@@ -22,7 +22,9 @@ A core executable chain in the model is:
 
 Requirements provide an additional entry point into the model, linking external obligations to the same control and implementation structure.
 
-From this model, multiple outputs can be generated: human-readable documents, validation rules, and IaC scaffolding. Validation is derived from observable signals (logs, state, policies) that provide evidence of implementation correctness.
+From the model, multiple outputs can be generated: human-readable documents, validation rules, and IaC scaffolding.
+
+Validation is derived from observable signals (logs, state, policies) that provide evidence of implementation correctness.
 
 This model introduces explicit validation semantics, where implementation evidence is aggregated into control and risk-level outcomes.
 
@@ -55,29 +57,38 @@ requirements:
     description: "All production VMs must have Secure Boot enabled"
     source: "Contract §5.2 / NIST SP 800-123"
     type: "security"
+
+    control_mapping:
+      - C-001
+
     verification_criteria: |
       Any resource of type 'azurerm_windows_virtual_machine'
       tagged 'environment:production' MUST have
       'secure_boot_enabled' == True
+
     failure_condition: |
       Any 'azurerm_windows_virtual_machine'
       WHERE 'environment:production' AND
       'secure_boot_enabled' != True
+
     implementation_mapping:
       - resource_type: azurerm_windows_virtual_machine
         parameters:
           secure_boot_enabled: True
 ```
+
+Direct implementation mapping is shown here for verification clarity; in the preferred model, implementation is primarily derived through controls.
+
 ### Why This Is Important
 
-- **Traceability** – Every requirement is directly linked to implementation and validation.
+- **Traceability** – Every requirement is explicitly linked to controls, implementation, and validation logic.
 - **Auditability** – You can generate a report showing exactly which requirements are satisfied (or violated) in the current environment.
 - **Contractual Evidence** – For each contract clause, the model provides machine‑checked evidence.
 - **Closing the Loop** – The same requirement can drive documentation, future IaC generation, and compliance checks.
 
 ## Human vs Machine Representation
 
-The architecture model is the single source of truth. Human-readable documents are generated views.
+The architecture model is the single source of truth. Human-readable documents are derived views, not independent sources of truth.
 
 The document contains structured sections, which are generated, canonical, and enforceable, and commentary sections, which are human-authored and explanatory. Structured content defines architecture. Commentary explains it.
 
@@ -133,7 +144,11 @@ The model exists to describe intent. Implementation exists in IaC (Terraform). O
 2. **IaC → Model completeness check** – are there implemented components that have no corresponding model element (orphaned resources)?
 3. **Selective override** – some divergence may be intentional (e.g., a temporary change for incident response). The model should allow explicit waiver annotations with expiration dates.
 
-Initially, drift detection operates on Terraform state (not directly on Azure APIs). This reduces complexity and leverages Terraform as a structured representation of reality. Future versions may add direct Azure API integration for resources not managed by Terraform. Terraform is used as a structured, quarriable representation of implemented state, not only as a deployment tool. Validation results are aggregated from implementation level to control and risk levels to provide architecture-level insight.
+Initially, drift detection operates on Terraform state (not directly on Azure APIs). This reduces complexity and leverages Terraform as a structured representation of reality. Future versions may add direct Azure API integration for resources not managed by Terraform.
+
+Terraform is used as a structured, queriable representation of implemented state, not only as a deployment tool.
+
+Validation results are aggregated from implementation level to control and risk levels to provide architecture-level insight.
 
 ## End-to-End Example: Identity / PAW / Conditional Access
 
@@ -146,7 +161,7 @@ Initially, drift detection operates on Terraform state (not directly on Azure AP
 
 Architecture model representation, in simplified form, can be viewed as: 
 
->Risk → Control → Constraint → Implementation → Observable Signal → Validation
+> Risk → Control → Constraint → Implementation → Observable Signal → Validation
 
 Implementation mapping includes Intune for device compliance, Conditional Access policies for access enforcement, Entra ID role assignment, and PIM for just-in-time privilege elevation.
 
@@ -156,7 +171,8 @@ Signals and verification include Entra ID sign-in logs, Conditional Access logs,
 
 ## From Example to Canonical Encoding
 
-The example above can be encoded in a structured format (YAML with schema validation). A simplified conceptual illustration, not the current schema. The purpose of this example is to show semantic structure, not the exact field layout of the current prototype:
+The example above can be encoded in a structured format (YAML with schema validation). A simplified conceptual illustration, not the current schema. The purpose of this example is to show semantic structure rather than the exact schema or full model representation:
+
 ```yaml
 risk:
   id: "R-001"
@@ -210,6 +226,8 @@ The model scope includes a broader set of architectural elements:
 
 The executable validation scope is intentionally narrower and focuses on what can be reliably evaluated through Terraform state.
 
+This results in partial validation coverage relative to the full architecture model.
+
 **Included in the executable validation scope:**
 
 - Terraform-managed Azure resources observable through Terraform state
@@ -239,7 +257,7 @@ The concept does not attempt to replace existing Microsoft security and governan
 
 These tools provide control definitions, compliance evaluation, and recommendations. They do **not** provide architectural intent, decision rationale, traceability from risk to implementation, or a unified model linking architecture to IaC.
 
-The proposed solution therefore introduces a higher-level architecture layer that references existing controls, maps them to requirements, controls, and constraints, connects them to implementation through Terraform, and provides traceability across risk, control, constraint, implementation, and validation. Instead of duplicating functionality, the system acts as an orchestrator and model layer above existing tools.
+The proposed solution therefore introduces a higher-level architecture layer that references existing controls, links them to requirements and architectural constraints, and connects them to implementation through Terraform.
 
 In the initial implementation, this traceability is strongest for Terraform-managed components and remains partial for identity and Graph-managed domains.
 
@@ -247,7 +265,7 @@ In the initial implementation, this traceability is strongest for Terraform-mana
 
 The initial implementation path is:
 
-> Architecture Model → Terraform (primary execution layer) → Azure Policy & Defender for Cloud (enforcement and validation layers).
+> Architecture Model → Terraform (primary execution and observable state layer) → Azure Policy & Defender for Cloud (enforcement and validation layers).
 
 A future extension may introduce Microsoft Graph or other APIs for identity and governance domains that are not yet automated. This phased approach enables early validation of the core concept while keeping the initial implementation realistic.
 
@@ -276,4 +294,6 @@ The initial scope is deliberately constrained to maximize execution success. Exi
 
 The long-term value of the system lies not only in traceability to IaC, but also in the ability to preserve one canonical architecture while rendering it through different organizational or methodological views without losing meaning or silently omitting important parts of the architecture.
 
-The long-term ambition is not only to generate documents and validate IaC, but to establish a portable, vendor-neutral, methodology-agnostic format for architectural knowledge. The initial implementation is deliberately constrained to Azure, Terraform, and security domain. But the model architecture — canonical representation, profile-based rendering, coverage control, and two-way consistency — is designed to extend. This proposal is a starting point, not a final specification.
+The long-term ambition is not only to generate documents and validate IaC, but to establish a portable, vendor-neutral, methodology-agnostic format for architectural knowledge.
+
+The initial implementation is deliberately constrained to Azure, Terraform, and the security domain. But the model architecture—canonical representation, profile-based rendering, coverage control, and two-way consistency—is designed to extend without changing its core semantic principles.
