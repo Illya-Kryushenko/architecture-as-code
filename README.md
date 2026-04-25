@@ -152,4 +152,10 @@ To contribute:
 2. Fork the repository
 3. Submit a pull request
 
+## Documentation
+
+- [Concept](docs/concept.md) – brief introduction to AaC
+- [Whitepaper](docs/whitepaper.md) – full concept, validation semantics, requirement-first approach
+- [Architecture Model](docs/architecture-model.md) – detailed element definitions
+
 See [`CONTRIBUTING.md`](CONTRIBUTING.md) for details (coming soon).
