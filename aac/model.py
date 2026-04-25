@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Any
 import yaml
 
@@ -7,7 +7,7 @@ class Risk:
     id: str
     name: str
     control_objective: str
-    controls: List[str]
+    controls: List[str] = field(default_factory=list)
 
 @dataclass
 class Control:

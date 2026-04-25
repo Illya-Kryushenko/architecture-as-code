@@ -1,6 +1,20 @@
 import json
 from .model import ArchitectureModel
 
+# Mapping-level statuses
+MAPPING_PASS = "PASS"
+MAPPING_FAIL = "FAIL"
+MAPPING_MISSING = "MISSING"
+
+# Control-level statuses
+CONTROL_COVERED = "COVERED"
+CONTROL_FAILED = "FAILED"
+CONTROL_INCOMPLETE = "INCOMPLETE"
+CONTROL_MISSING = "MISSING"
+
+# Risk-level statuses
+RISK_COVERED = "COVERED"
+RISK_EXPOSED = "EXPOSED"
 
 def get_nested_attr(obj, path):
     """
@@ -52,19 +66,19 @@ def evaluate_control_status(results):
     """
     Derives control status from mapping-level results.
     """
-    if results and all(result == "PASS" for result in results):
-        return "COVERED"
+    if results and all(result == MAPPING_PASS for result in results):
+        return CONTROL_COVERED
 
-    if "FAIL" in results:
-        return "FAILED"
+    if MAPPING_FAIL in results:
+        return CONTROL_FAILED
 
-    if "PASS" in results and "MISSING" in results:
-        return "INCOMPLETE"
+    if MAPPING_PASS in results and MAPPING_MISSING in results:
+        return CONTROL_INCOMPLETE
 
-    if results and all(result == "MISSING" for result in results):
-        return "MISSING"
+    if results and all(result == MAPPING_MISSING for result in results):
+        return CONTROL_MISSING
 
-    return "MISSING"
+    return CONTROL_MISSING
 
 
 def evaluate_risk_status(risk_controls, covered_control_ids):
@@ -72,12 +86,12 @@ def evaluate_risk_status(risk_controls, covered_control_ids):
     Derives risk status from linked control coverage.
     """
     if not risk_controls:
-        return "EXPOSED"
+        return RISK_EXPOSED
 
     if all(control_id in covered_control_ids for control_id in risk_controls):
-        return "COVERED"
+        return RISK_COVERED
 
-    return "EXPOSED"
+    return RISK_EXPOSED
 
 
 def check_model_against_terraform_state(model: ArchitectureModel, state_path: str) -> bool:
@@ -112,21 +126,21 @@ def check_model_against_terraform_state(model: ArchitectureModel, state_path: st
 
             if matches:
                 found = True
-                control_mapping_results[mapping.control_id].append("PASS")
+                control_mapping_results[mapping.control_id].append(MAPPING_PASS)
                 print(f"✅ PASS: {mapping.control_id} -> {res['name']} ({mapping.resource_type})")
                 break
 
             # Resource type matched, but one of the checks failed
             if msg != "type mismatch":
                 print(f"❌ FAIL: {mapping.control_id} found resource '{res['name']}', but {msg}")
-                control_mapping_results[mapping.control_id].append("FAIL")
+                control_mapping_results[mapping.control_id].append(MAPPING_FAIL)
                 all_passed = False
                 found = True
                 break
 
         if not found:
             print(f"⚠️  MISSING: {mapping.control_id} (no resource of type {mapping.resource_type} found)")
-            control_mapping_results[mapping.control_id].append("MISSING")
+            control_mapping_results[mapping.control_id].append(MAPPING_MISSING)
             all_passed = False
 
     covered_control_ids = set()
@@ -136,12 +150,12 @@ def check_model_against_terraform_state(model: ArchitectureModel, state_path: st
         results = control_mapping_results.get(control.id, [])
         control_status = evaluate_control_status(results)
 
-        if control_status == "COVERED":
+        if control_status == CONTROL_COVERED:
             status_icon = "🛡️"
             covered_control_ids.add(control.id)
-        elif control_status == "FAILED":
+        elif control_status == CONTROL_FAILED:
             status_icon = "❌"
-        elif control_status == "INCOMPLETE":
+        elif control_status == CONTROL_INCOMPLETE:
             status_icon = "🟡"
         else:
             status_icon = "⚠️"
@@ -153,7 +167,7 @@ def check_model_against_terraform_state(model: ArchitectureModel, state_path: st
         risk_controls = getattr(risk, "controls", [])
         risk_status = evaluate_risk_status(risk_controls, covered_control_ids)
 
-        status_icon = "🛡️" if risk_status == "COVERED" else "🚨"
+        status_icon = "🛡️" if risk_status == RISK_COVERED else "🚨"
         print(f"{status_icon}  {risk_status} | Risk '{risk.name}' (ID: {risk.id})")
 
     return all_passed
