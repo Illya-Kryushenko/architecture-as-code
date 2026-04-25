@@ -22,6 +22,8 @@ A core executable chain in the model is:
 
 Requirements provide an additional entry point into the model, linking external obligations to the same control and implementation structure.
 
+Requirements describe external or contractual obligations. Risks describe what can go wrong if those obligations are not met. The model supports both topologies: deriving controls from risk, or linking controls directly to requirements. This allows AaC to work equally well for security-driven (risk‑first) and compliance‑driven (requirement‑first) architectures
+
 From the model, multiple outputs can be generated: human-readable documents, validation rules, and IaC scaffolding.
 
 Validation is derived from observable signals (logs, state, policies) that provide evidence of implementation correctness.
@@ -171,7 +173,9 @@ Signals and verification include Entra ID sign-in logs, Conditional Access logs,
 
 ## From Example to Canonical Encoding
 
-The example above can be encoded in a structured format (YAML with schema validation). A simplified conceptual illustration, not the current schema. The purpose of this example is to show semantic structure rather than the exact schema or full model representation:
+The following YAML is a conceptual illustration, not a formal specification. The exact schema and field naming may evolve without breaking the core semantic principles shown here.
+
+A simplified conceptual illustration (not the current schema):
 
 ```yaml
 risk:
@@ -253,7 +257,7 @@ The concept does not attempt to replace existing Microsoft security and governan
 | Azure Policy | Enforcement and compliance evaluation |
 | Microsoft Defender for Cloud | Posture assessment and recommendations |
 | Microsoft Cloud Security Benchmark | Structured mappings of security controls |
-| ISO 27001, NIST | Existing policy sets (regulatory compliance) |
+| ISO 27001, NIST | Existing compliance frameworks (regulatory compliance) |
 
 These tools provide control definitions, compliance evaluation, and recommendations. They do **not** provide architectural intent, decision rationale, traceability from risk to implementation, or a unified model linking architecture to IaC.
 
@@ -273,9 +277,9 @@ A future extension may introduce Microsoft Graph or other APIs for identity and 
 
 By leveraging existing Microsoft capabilities and focusing on the missing architectural layer, the solution avoids duplication of existing tooling, enhances visibility and traceability, bridges the gap between design and implementation, and creates a path toward a broader multi-cloud architecture model.
 
-- **Cross-organizational architecture handover.** When AaC delivers an architecture to a client, the client receives not only documents but also the canonical model (or a profile-rendered view). The client can continue evolving the architecture in their own tooling, or re-import future changes from AaC. The model becomes a transferable asset, not a static deliverable.
+- **Cross-organizational architecture handover.** When the system delivers an architecture to a client, the client receives not only documents but also the canonical model (or a profile-rendered view). The client can continue evolving the architecture in their own tooling, or re-import future changes from AaC. The model becomes a transferable asset, not a static deliverable.
 
-- **Subcontractor integration.** A security specialist receives only the security profile of the model. After completing their work, they return updates (in the same canonical format or a subset). The system merges these updates into the master model without manual re-entry.
+- **Subcontractor integration.** A security specialist receives only the security profile of the model. After completing their work, they return updates (in the same canonical format or a subset). The system merges these updates into the master model without manual re‑entry of data..
 
 - **Methodological independence.** The same architecture can be rendered as TOGAF architecture for an enterprise architect, as CAF architecture for a cloud governance lead, and as Company internal HLD for the delivery team — all from one model. This breaks the current lock-in where choosing a methodology forces a specific document template.
 
