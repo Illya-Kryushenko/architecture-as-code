@@ -110,7 +110,10 @@ def check_model_against_terraform_state(model: ArchitectureModel, state_path: st
         elif "FAIL" in results:
             control_status = "FAILED"
             status_icon = "❌"
-        elif "MISSING" in results:
+        elif "PASS" in results and "MISSING" in results:
+            control_status = "INCOMPLETE"
+            status_icon = "🟡"
+        elif results and all(result == "MISSING" for result in results):
             control_status = "MISSING"
             status_icon = "⚠️"
         else:
@@ -123,10 +126,10 @@ def check_model_against_terraform_state(model: ArchitectureModel, state_path: st
     for risk in model.risks:
         risk_controls = getattr(risk, "controls", [])
 
-        is_covered = any(
+        is_covered = all(
             control_id in covered_control_ids
             for control_id in risk_controls
-        )
+        ) if risk_controls else False
 
         status = "🛡️  COVERED" if is_covered else "🚨 EXPOSED"
         print(f"{status} | Risk '{risk.name}' (ID: {risk.id})")
