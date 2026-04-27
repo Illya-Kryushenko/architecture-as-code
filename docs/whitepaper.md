@@ -275,4 +275,3 @@ AaC provides **architectural intent, traceability, and aggregation** above them.
 Architecture as Code introduces a shift from static documentation to a living, structured, and verifiable architectural model.
 
 By deliberately constraining scope and building on existing tooling, the approach delivers immediate value while remaining extensible. The long‑term ambition is a portable, vendor‑neutral, methodology‑agnostic format for architectural knowledge that preserves intent, enables validation, and prevents silent drift.
-``
