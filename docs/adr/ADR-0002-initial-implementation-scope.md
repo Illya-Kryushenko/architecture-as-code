@@ -6,6 +6,12 @@ Accepted
 ## Date
 2026-04-22
 
+## Author
+
+Illya Kryushenko
+
+---
+
 ## Context
 
 The concept includes a broad architecture model covering identity, governance, and infrastructure.
