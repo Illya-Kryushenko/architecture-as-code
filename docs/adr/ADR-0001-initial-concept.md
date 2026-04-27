@@ -12,6 +12,8 @@ Accepted
 
 Illya Kryushenko
 
+---
+
 ## Context
 
 Cloud architecture currently suffers from a structural disconnect between:
