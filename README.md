@@ -20,7 +20,7 @@ The initial focus is **Security Architecture**, where the structure is stronger 
 
 ## Repository Positioning and Status
 
-**This repository is not a product, framework, or turn-key tool.**
+**This repository is not a product, framework, or turnkey tool.**
 
 It represents a **reference architecture and canonical architecture model** for Architecture as Code — an approach to treating architecture as a **structured, first-class, and transferable asset**, rather than static documentation.
 
