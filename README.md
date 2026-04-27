@@ -1,134 +1,183 @@
 # Architecture as Code (AaC)
-Structured architecture models linked to CAF, Zero Trust, and Infrastructure as Code
+
+**Structured architecture models linked to CAF, Zero Trust, and Infrastructure as Code**
+
+---
 
 ## Overview
 
 This repository captures the initial concept of transforming architecture from static documentation into a structured, traceable, and partially executable model.
 
-The current starting point is Microsoft Cloud Adoption Framework (CAF) and Zero Trust guidance. The core idea is to transform architectural guidance into machine-readable templates that can be linked to architecture models, Infrastructure as Code, validation, and drift detection.
+The current starting point is **Microsoft Cloud Adoption Framework (CAF)** and **Zero Trust** guidance. The core idea is to transform architectural guidance into **machine-readable architecture models** that can be linked to:
 
-The initial focus is Security Architecture, where the structure is stronger and the relationships between risk, control, and implementation are clearer.
+- architectural intent and decisions  
+- Infrastructure as Code  
+- validation and drift detection  
+
+The initial focus is **Security Architecture**, where the structure is stronger and the relationships between **risk, control, constraints, and implementation** are clearer.
+
+---
+
+## Repository Positioning and Status
+
+**This repository is not a product, framework, or turn-key tool.**
+
+It represents a **reference architecture and canonical architecture model** for Architecture as Code — an approach to treating architecture as a **structured, first-class, and transferable asset**, rather than static documentation.
+
+The repository serves as:
+
+- a **canonical architecture model proposal**
+- a **reference architecture for CAF and Zero Trust**
+- a **conceptual and technical foundation** for architecture governance, validation, and traceability
+- a **design authority baseline** from which organizations, system integrators, or vendors may build their own tooling, standards, or internal platforms
+
+Tooling, automation, and enforcement are considered **derived concerns**, intentionally secondary to the architectural semantic model.
+
+---
 
 ## Problem
 
 Modern cloud environments have a structural gap between:
 
-- architectural intent
-- architectural guidance
-- implementation in IaC
-- deployed reality
+- architectural intent  
+- architectural guidance  
+- implementation in IaC  
+- deployed reality  
 
-Architecture documents explain intent, but become outdated.
-IaC accurately describes implementation, but does not explain why the system is built this way.
+Architecture documents explain *intent*, but become outdated.  
+IaC accurately describes *implementation*, but does not explain **why** the system is built this way.
 
 As a result, organizations struggle with:
 
-- architectural drift
-- weak traceability
-- poor alignment between decisions and implementation
-- manual and inconsistent validation of architecture
+- architectural drift  
+- weak traceability  
+- poor alignment between decisions and implementation  
+- manual and inconsistent validation of architecture  
+
+---
 
 ## Core Idea
 
-The proposed model introduces an architecture layer that sits above IaC and connects:
+The proposed model introduces an **explicit architecture layer above IaC** that connects:
 
-- guidance
-- constraints
-- requirements
-- architecture decisions
-- implementation mappings
-- validation rules
+- guidance  
+- constraints  
+- requirements  
+- architectural decisions  
+- implementation mappings  
+- validation rules  
 
-The long-term direction is to move from architecture as static text to architecture as a living, structured, and verifiable model.
+The long-term direction is to move from **architecture as static text** to **architecture as a living, structured, and verifiable model**.
+
+The architecture model becomes the **single semantic source of truth**, from which documentation, validation logic, and derived artifacts are generated.
+
+---
 
 ## Initial Direction
 
-The first practical scope is:
+The first practical scope focuses on:
 
-- CAF and Zero Trust as executable templates
+- CAF and Zero Trust as **executable architectural templates**
 - Security Architecture as the first implementation domain
 - human-readable architecture documents generated from a structured model
-- support for both canonical architecture data and human commentary
-- early validation against Terraform state through a simple working prototype
+- support for both **canonical architecture data** and **human commentary**
+- early validation against **Terraform state** through a working prototype
+
+Terraform is used as an **observable representation of implemented reality**, not as the authority on architectural intent.
+
+---
 
 ## Guiding Principles
 
-- The architecture model is the primary source of truth
-- Human-readable documents are generated views of the model
-- Structured content defines architecture
-- Commentary explains architecture
-- Commentary must not replace canonical architectural facts
+- The architecture model is the **primary source of truth**
+- Human-readable documents are **generated views** of the model  
+- Structured content **defines** architecture  
+- Commentary **explains** architecture  
+- Commentary must **not replace canonical architectural facts**
+
+---
 
 ## Specification
 
-The AaC model specification is in [`docs/architecture-model.md`](docs/architecture-model.md).
+The **Architecture as Code (AaC) model specification** is defined in:
 
+- [`docs/architecture-model.md`](docs/architecture-model.md)
 - [Example model](examples/basic-model.yaml) – illustrates risks, controls, and implementation mappings
 - [Terraform state example](examples/example.tfstate) – used for validation
 
-The specification is versioned and open to change based on community feedback.
+The specification includes:
 
-## Call to Action
+- canonical architectural elements (risks, controls, constraints, implementations)
+- required relationships and traceability semantics
+- rules for validation and aggregation
 
-We invite everyone to:
+The specification is versioned and intentionally open to evolution based on feedback and real-world use.
 
-1. **Try the prototype** – clone, run against your Terraform state
-2. **Open issues** – what works, what doesn't, what's missing
-3. **Propose changes** to the model schema in [`docs/architecture-model.md`](docs/architecture-model.md)
-4. **Contribute code** – validator, Terraform parser, document generator, Azure API integration
-5. **Adopt AaC** in your projects (even as an experiment)
-
-The long-term ambition is to evolve this into an open, community-driven Architecture as Code approach rather than a vendor-specific tool.
-
-All contributions are welcome: docs, examples, code, use cases.
+---
 
 ## Repository Scope
 
 This repository currently contains:
 
-- concept documents and whitepaper material
-- an evolving Architecture as Code model
-- initial ADRs
-- example representations of the model
-- a working prototype validator
-- early implementation code used to test the concept
+- concept documents and whitepaper material  
+- an evolving Architecture as Code canonical model  
+- initial architectural decision records (ADRs)  
+- example model representations  
+- a working prototype validator  
+- early implementation code used to test the concept  
+
+---
 
 ## Current Status
 
-This repository contains:
-
 ### Conceptually defined
-- an Architecture as Code concept and rationale
-- a canonical architecture model focused on traceability from risk to control, implementation, and observable validation
-- the distinction between canonical model and human-readable architectural views
-- early ideas for representation profiles, coverage, and completeness
+
+- the Architecture as Code concept and rationale  
+- a canonical architecture model focused on traceability from:
+  - risk → control → implementation → observable validation  
+- clear separation between:
+  - canonical architecture model  
+  - human-readable architectural views  
+- early concepts for:
+  - representation profiles  
+  - coverage and completeness tracking  
 
 ### Implemented in the current prototype
-- parsing an AaC model from YAML
-- parsing Terraform state from JSON
-- validating resource type, tags, and selected parameters against the model
-- producing validation results through a simple CLI
+
+- parsing an AaC model from YAML  
+- parsing Terraform state from JSON  
+- validating:
+  - resource types  
+  - tags  
+  - selected parameters  
+  against the architecture model  
+- producing validation results via a simple CLI  
 
 ### Not yet implemented
-- signal-informed risk coverage analysis
-- signal-based validation
-- representation profile rendering
-- validation beyond the provided Terraform state scope
-- broader multi-domain support beyond the current example focus
+
+- signal-informed risk coverage analysis  
+- signal-based validation  
+- profile-based document rendering  
+- validation beyond the Terraform state scope  
+- broader multi-domain support beyond the current example focus  
+
+---
 
 ## What You Can Do Today
 
 With the current prototype, you can:
 
-- define a simple architecture model linking risks, controls, and implementation mappings
-- validate Terraform state against that model
+- define a simple architecture model linking risks, controls, and implementation mappings  
+- validate Terraform state against that model  
 - identify:
-  - missing implementations
-  - misconfigured resources
-  - partially implemented controls
-- see how implementation issues propagate to control and risk status (e.g., FAILED, INCOMPLETE, EXPOSED)
+  - missing implementations  
+  - misconfigured resources  
+  - partially implemented controls  
+- observe how implementation issues propagate to:
+  - control status  
+  - risk status (e.g. FAILED, INCOMPLETE, EXPOSED)  
 
-A ready-to-use example model and Terraform state are included. See [`examples/basic-model.yaml`](examples/basic-model.yaml) and run:
+A ready-to-use example is provided. Run:
 ```bash
 PYTHONPATH=. python -m aac.cli --model examples/basic-model.yaml --state examples/example.tfstate
 ```
@@ -136,26 +185,41 @@ The output shows validation results at mapping, control, and risk levels.
 
 ## Scope (Initial Version)
 
-This project focuses on architecture modeling and Terraform-based implementation.
+The initial scope focuses on **architecture modeling and Terraform-based validation**.
 
-Out of scope for the current prototype:
-- Identity governance automation (including PIM and Conditional Access)
-- Microsoft Graph-based configuration validation
-- Full Microsoft 365 security integration
+### Out of scope for the current prototype
+
+- Identity governance automation (including PIM and Conditional Access)  
+- Microsoft Graph-based configuration validation  
+- Full Microsoft 365 security integration  
+
+These areas are **explicitly modeled**, but not yet automated.
+
+---
 
 ## Contributing
 
-We follow the **Open Standard** model, not a single-vendor roadmap.
+This project follows an **open standard model**, not a single-vendor roadmap.
 
 To contribute:
-1. Open an issue to discuss the change
-2. Fork the repository
-3. Submit a pull request
+
+- open an issue to discuss the change  
+- fork the repository  
+- submit a pull request  
+
+Contributions may include:
+
+- model evolution  
+- validation logic  
+- parsers and generators  
+- use cases and examples  
+
+---
 
 ## Documentation
 
-- [Concept](docs/concept.md) – brief introduction to AaC
-- [Whitepaper](docs/whitepaper.md) – full concept, validation semantics, requirement-first approach
-- [Architecture Model](docs/architecture-model.md) – detailed element definitions
+- **Concept** — brief introduction to Architecture as Code  
+- **Whitepaper** — full concept, validation semantics, requirement-first approach  
+- **Architecture Model** — detailed element definitions  
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for details (coming soon).
+See `CONTRIBUTING.md` for details (coming soon).
