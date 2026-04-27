@@ -112,11 +112,11 @@ To ensure that the model remains canonical and not just “structured YAML,” t
 
 ### Mandatory Relationships
 
-- A **Requirement** must map to one or more Controls
-- A **Risk** must map to one or more Controls
-- A **Control** may define one or more Constraints
+- A **Requirement** must map to one or more **Controls**
+- A **Risk** must map to one or more **Controls**
+- A **Control** may define one or more **Constraints**
 - A **Control** or **Constraint** must map to at least one **ImplementationMapping** within executable scope, or be explicitly marked as external or not yet automated
-- A **ValidationRule** must reference observable Evidence
+- A **ValidationRule** must reference observable **Evidence**
 
 ### Invariants
 
