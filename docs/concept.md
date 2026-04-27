@@ -3,9 +3,13 @@
 
 > **For the full whitepaper with representation profiles, drift detection, validation semantics, and detailed examples, see [Whitepaper](whitepaper.md).**
 
+---
+
 ## Core hypothesis
 
 It should be possible to transform architecture from descriptive guidance into a structured, machine-readable, and partially enforceable model.
+
+---
 
 ## Initial motivation
 
@@ -18,6 +22,8 @@ Infrastructure as Code solved deployment reproducibility, but did not solve the 
 
 AaC attempts to create a bridge between these layers.
 
+---
+
 ## Initial focus
 
 The first focus area is **Security Architecture**, because it provides:
@@ -29,6 +35,8 @@ The first focus area is **Security Architecture**, because it provides:
 
 This makes it a practical and realistic starting point for Architecture as Code.
 
+---
+
 ## Core conceptual chain
 
 A central chain in the model is:
@@ -38,6 +46,8 @@ A central chain in the model is:
 This chain connects architectural intent with deployed reality and observable verification.
 
 Signals represent observable evidence (state, logs, policy results) that is used as input for validation.
+
+---
 
 ### Example
 
@@ -49,6 +59,8 @@ Signals represent observable evidence (state, logs, policy results) that is used
 - **Validation:** Verify that the VM exists, is tagged correctly, and participates in enforced access policies  
 
 The model allows validation results to be interpreted in an architectural context rather than at a single-resource level.
+
+---
 
 ## Requirements as first-class citizens
 
@@ -64,6 +76,8 @@ This transforms compliance from a manual, document-based activity into a structu
 
 See the whitepaper for detailed schema and examples.
 
+---
+
 ## Human and machine representation
 
 Architecture exists in two complementary forms:
@@ -78,6 +92,8 @@ The model is canonical.
 Documents are derived projections.  
 Commentary explains architecture, but must not replace canonical facts.
 
+---
+
 ## Template direction
 
 A practical starting point for adoption is to define reusable architecture templates based on established Microsoft guidance, such as:
@@ -89,6 +105,8 @@ A practical starting point for adoption is to define reusable architecture templ
 - Conditional Access and PIM requirements
 
 These templates provide a concrete entry point while preserving architectural intent and traceability.
+
+---
 
 ## Possible future directions
 
@@ -102,6 +120,8 @@ Potential evolution paths include:
 - extension beyond security architecture to broader infrastructure domains
 
 These are future possibilities, not current assumptions.
+
+---
 
 ## Relationship to existing Microsoft capabilities
 
@@ -118,6 +138,8 @@ Instead, it:
 - connects them to risks, controls, and constraints
 - aggregates their outputs into architectural understanding
 
+---
+
 ## Open Standard ambition
 
 This proposal is not tied to a specific vendor, tool, or methodology.
@@ -132,6 +154,8 @@ An Architecture as Code standard should be:
 
 All contributions—to the model, schema, examples, or validation logic—are welcome under the MIT license.
 
+---
+
 ## Representation layer
 
 The architecture model is independent of its textual representation.
@@ -143,6 +167,8 @@ Different representation profiles may render the same model using:
 - organization-specific formats
 
 The initial implementation includes a single, neutral representation profile.
+
+---
 
 ## Coverage and completeness control
 
