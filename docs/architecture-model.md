@@ -2,6 +2,8 @@
 
 This document defines the core elements of the Architecture as Code (AaC) model, their relationships, and how they map to implementation and validation.
 
+---
+
 ## Core Elements
 
 ### Risk
@@ -43,6 +45,8 @@ The process of checking whether the implementation matches the model.
 
 **Current approach:** validation against Terraform state, including resource type, tags, and selected parameters (see [validator](../aac/validator.py))
 
+---
+
 ## Example
 
 See [`examples/basic-model.yaml`](../examples/basic-model.yaml) for a complete example.
@@ -73,6 +77,8 @@ The model includes multiple controls linked to the same risk (C-001 to C-004), d
 - `MISSING` control (C-004): all mappings are missing
 - `EXPOSED` risk (R-001): not all linked controls are covered
 
+---
+
 ## Relationships
 
 - A **Risk** is associated with a control_objective, which is conceptually implemented by one or more **Controls**.
@@ -83,6 +89,8 @@ The model includes multiple controls linked to the same risk (C-001 to C-004), d
 - A **Control** is linked to infrastructure via **Implementation Mappings**.
 
 - **Validation** checks that Implementation Mappings match actual Terraform state.
+
+---
 
 ## Validation Semantics
 
@@ -105,6 +113,8 @@ A control status is derived from the results of all its implementation mappings:
 A risk is evaluated based on its linked controls:
 - `COVERED` – all linked controls are covered
 - `EXPOSED` – one or more linked controls are not covered
+
+---
 
 ## Open Standard
 
