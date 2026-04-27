@@ -6,6 +6,12 @@ Accepted
 ## Date
 2026-04-25
 
+## Author
+
+Illya Kryushenko
+
+---
+
 ## Context
 
 The initial model defined a conceptual chain:
