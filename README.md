@@ -220,6 +220,4 @@ Contributions may include:
 
 - **Concept** — brief introduction to Architecture as Code  
 - **Whitepaper** — full concept, validation semantics, requirement-first approach  
-- **Architecture Model** — detailed element definitions  
-
-See `CONTRIBUTING.md` for details (coming soon).
+- **Architecture Model** — detailed element definitions
