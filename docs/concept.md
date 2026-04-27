@@ -9,8 +9,6 @@
 
 It should be possible to transform architecture from descriptive guidance into a structured, machine-readable, and partially enforceable model.
 
----
-
 ## Initial motivation
 
 Infrastructure as Code solved deployment reproducibility, but did not solve the architectural gap between:
@@ -22,8 +20,6 @@ Infrastructure as Code solved deployment reproducibility, but did not solve the 
 
 AaC attempts to create a bridge between these layers.
 
----
-
 ## Initial focus
 
 The first focus area is **Security Architecture**, because it provides:
@@ -34,8 +30,6 @@ The first focus area is **Security Architecture**, because it provides:
 - higher validation value
 
 This makes it a practical and realistic starting point for Architecture as Code.
-
----
 
 ## Core conceptual chain
 
@@ -105,8 +99,6 @@ A practical starting point for adoption is to define reusable architecture templ
 - Conditional Access and PIM requirements
 
 These templates provide a concrete entry point while preserving architectural intent and traceability.
-
----
 
 ## Possible future directions
 
