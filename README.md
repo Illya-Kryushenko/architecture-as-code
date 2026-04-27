@@ -101,7 +101,7 @@ Terraform is used as an **observable representation of implemented reality**, no
 
 The **Architecture as Code (AaC) model specification** is defined in:
 
-- [Architecture Model](docs/architecture-model.md)
+- [Architecture Model](docs/architecture-model.md) – detailed element definitions
 - [Example model](examples/basic-model.yaml) – illustrates risks, controls, and implementation mappings
 - [Terraform state example](examples/example.tfstate) – used for validation
 
@@ -219,5 +219,4 @@ Contributions may include:
 ## Documentation
 
 - [**Concept**](docs/concept.md) — brief introduction to Architecture as Code  
-- [**Whitepaper**](docs/whitepaper.md) — full concept, validation semantics, requirement-first approach  
-- [**Architecture Model**](docs/architecture-model.md) — detailed element definitions
+- [**Whitepaper**](docs/whitepaper.md) — full concept, validation semantics, requirement-first approach
