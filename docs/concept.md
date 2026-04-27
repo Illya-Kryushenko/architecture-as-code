@@ -5,13 +5,13 @@
 
 ## Core hypothesis
 
-It should be possible to transform architecture from descriptive guidance into a structured, machine‑readable, and partially enforceable model.
+It should be possible to transform architecture from descriptive guidance into a structured, machine-readable, and partially enforceable model.
 
 ## Initial motivation
 
 Infrastructure as Code solved deployment reproducibility, but did not solve the architectural gap between:
 
-- intent
+- architectural intent
 - decisions
 - implementation
 - validation
@@ -20,101 +20,137 @@ AaC attempts to create a bridge between these layers.
 
 ## Initial focus
 
-The first focus area is Security Architecture because it provides:
+The first focus area is **Security Architecture**, because it provides:
 
 - stronger structure
 - clearer constraints
-- better traceability
+- better-defined control boundaries
 - higher validation value
+
+This makes it a practical and realistic starting point for Architecture as Code.
 
 ## Core conceptual chain
 
 A central chain in the model is:
 
-> Risk → Control → Constraint → Implementation → Signal → Validation
+> **Risk → Control → Constraint → Implementation → Signal → Validation**
 
-This allows the model to connect architecture with deployed reality and verification.
+This chain connects architectural intent with deployed reality and observable verification.
 
-**Example:**
-- Risk: Privilege escalation via compromised admin endpoint
-- Control: Privileged Access Workstation (PAW)
-- Constraint: Admin roles require compliant devices
-- Implementation: Azure VM with tag `role: PAW`
-- Signal: Entra ID sign‑in logs, Conditional Access logs
-- Validation: Check that the VM exists and has the required tag
+Signals represent observable evidence (state, logs, policy results) that is used as input for validation.
 
-## Requirements as first‑class citizens
+### Example
 
-In regulated industries, architecture is driven by **requirements** from contracts, compliance frameworks, and stakeholders. AaC treats requirements as explicit model elements with **verification criteria** and **failure conditions**, linking them directly to controls and implementation. This turns compliance from a manual audit exercise into an automated, machine‑checked process. See the whitepaper for details.
+- **Risk:** Privilege escalation via compromised admin endpoint  
+- **Control:** Privileged Access Workstation (PAW)  
+- **Constraint:** Admin roles require compliant devices  
+- **Implementation:** Azure VM with tag `role: PAW`  
+- **Signal:** Entra ID sign-in logs, Conditional Access logs  
+- **Validation:** Verify that the VM exists, is tagged correctly, and participates in enforced access policies  
+
+The model allows validation results to be interpreted in an architectural context rather than at a single-resource level.
+
+## Requirements as first-class citizens
+
+In regulated industries, architecture is driven by **requirements** originating from contracts, compliance frameworks, and stakeholder obligations.
+
+AaC treats requirements as explicit model elements with:
+
+- verification criteria
+- failure conditions
+- traceable links to controls and implementation
+
+This transforms compliance from a manual, document-based activity into a structured and machine-checkable process.
+
+See the whitepaper for detailed schema and examples.
 
 ## Human and machine representation
 
 Architecture exists in two complementary forms:
 
-1. **Structured model** – for processing, validation, and automation (YAML/JSON)
-2. **Human‑readable documentation** – generated views of the same model, augmented with explanatory commentary
+1. **Structured architecture model**  
+   Canonical, machine-readable representation (YAML/JSON) used for validation and analysis.
 
-The model is canonical. Documents are derived projections. Commentary explains, but must not replace canonical facts.
+2. **Human-readable documentation**  
+   Generated views of the same model, augmented with explanatory commentary.
+
+The model is canonical.  
+Documents are derived projections.  
+Commentary explains architecture, but must not replace canonical facts.
 
 ## Template direction
 
-A practical starting point is to define architecture templates based on Microsoft guidance such as:
+A practical starting point for adoption is to define reusable architecture templates based on established Microsoft guidance, such as:
 
 - CAF landing zones
 - Zero Trust identity patterns
-- PAW / privileged access controls
+- Privileged Access Workstation (PAW) controls
 - Key Vault boundary patterns
 - Conditional Access and PIM requirements
 
+These templates provide a concrete entry point while preserving architectural intent and traceability.
+
 ## Possible future directions
 
-- architecture‑to‑IaC traceability
+Potential evolution paths include:
+
+- architecture-to-IaC traceability
 - baseline IaC generation from structured architecture
-- drift detection
-- compliance templates
-- open template ecosystem
-- extension from security architecture to broader infrastructure architecture
+- drift detection between model and implementation
+- reusable compliance templates
+- an open template ecosystem
+- extension beyond security architecture to broader infrastructure domains
+
+These are future possibilities, not current assumptions.
 
 ## Relationship to existing Microsoft capabilities
 
-The solution does **not** replace:
+The AaC approach does **not** replace existing Microsoft capabilities such as:
+
 - Azure Policy
 - Microsoft Defender for Cloud
 - Microsoft Cloud Security Benchmark
 
 Instead, it:
-- references them
-- structures them
-- connects them to architecture decisions and IaC
+
+- references them as implementation evidence
+- structures them within an architectural model
+- connects them to risks, controls, and constraints
+- aggregates their outputs into architectural understanding
 
 ## Open Standard ambition
 
 This proposal is not tied to a specific vendor, tool, or methodology.
 
-The goal is to create an **Open Standard** for Architecture as Code that can be:
-- implemented by any organisation
-- rendered into any documentation format
-- validated against any IaC tool (initially Terraform, later others)
+The intent is to define a **vendor-neutral, methodology-agnostic canonical model** that specifies semantics and structure, not a mandatory implementation or governing body.
 
-All contributions — to the model, the schema, or the validator — are welcome under the MIT license.
+An Architecture as Code standard should be:
+
+- implementable by any organization
+- renderable into any documentation format
+- verifiable against any IaC system (initially Terraform, later others)
+
+All contributions—to the model, schema, examples, or validation logic—are welcome under the MIT license.
 
 ## Representation layer
 
-The architecture model is independent from its textual representation.
+The architecture model is independent of its textual representation.
 
-Different representation profiles can render the same model using:
+Different representation profiles may render the same model using:
+
 - different terminology
 - different document structures
-- organisation‑specific formats
+- organization-specific formats
 
-The initial implementation includes a single neutral representation.
+The initial implementation includes a single, neutral representation profile.
 
 ## Coverage and completeness control
 
 The system tracks which elements of the architecture model are represented in each document view.
 
 Elements not included in a representation must be:
-- explicitly excluded
-- or marked as not yet represented
 
-This ensures no architectural decisions or controls are silently omitted.
+- explicitly excluded, or
+- marked as not yet represented
+
+This ensures that no architectural decisions, risks, or controls are silently omitted.
