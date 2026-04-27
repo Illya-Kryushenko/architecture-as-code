@@ -45,7 +45,7 @@ Modern cloud environments have a structural gap between:
 - deployed reality  
 
 Architecture documents explain *intent*, but become outdated.  
-IaC accurately describes *implementation*, but does not explain **why** the system is built this way.
+IaC accurately describes *implementation*, but does not express **architectural intent**.
 
 As a result, organizations struggle with:
 
@@ -58,7 +58,7 @@ As a result, organizations struggle with:
 
 ## Core Idea
 
-The proposed model introduces an **explicit architecture layer above IaC** that connects:
+The model introduces an **explicit architecture layer above IaC** that links:
 
 - guidance  
 - constraints  
@@ -109,7 +109,7 @@ The specification includes:
 
 - canonical architectural elements (risks, controls, constraints, implementations)
 - required relationships and traceability semantics
-- rules for validation and aggregation
+- rules for validation and aggregation of results
 
 The specification is versioned and intentionally open to evolution based on feedback and real-world use.
 
@@ -134,7 +134,7 @@ This repository currently contains:
 
 - the Architecture as Code concept and rationale  
 - a canonical architecture model focused on traceability from:
-  - risk → control → implementation → observable validation  
+  - risk → control → constraint → implementation → validation (derived from observable state)
 - clear separation between:
   - canonical architecture model  
   - human-readable architectural views  
@@ -173,7 +173,7 @@ With the current prototype, you can:
   - missing implementations  
   - misconfigured resources  
   - partially implemented controls  
-- observe how implementation issues propagate to:
+- observe how implementation issues propagate through the architecture model to higher-level outcomes:
   - control status  
   - risk status (e.g. FAILED, INCOMPLETE, EXPOSED)  
 
