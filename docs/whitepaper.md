@@ -12,6 +12,8 @@
 
 This document is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
+https://creativecommons.org/licenses/by/4
+
 This document is an original work by Illya Kryushenko and is licensed under CC BY 4.0. You may use, share, and adapt it freely for any purpose, including commercially, as long as you provide appropriate credit to the original author.
 
 ___
