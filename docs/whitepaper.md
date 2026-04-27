@@ -12,7 +12,7 @@
 
 This document is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
-https://creativecommons.org/licenses/by/4
+[https://creativecommons.org/licenses/by/4](https://creativecommons.org/licenses/by/4.0/)
 
 This document is an original work by Illya Kryushenko and is licensed under CC BY 4.0. You may use, share, and adapt it freely for any purpose, including commercially, as long as you provide appropriate credit to the original author.
 
@@ -22,7 +22,7 @@ ___
 
 Modern cloud environments rely heavily on Infrastructure as Code (IaC) to define and deploy systems with precision. At the same time, architectural intent, risk considerations, and compliance obligations are documented separately through architectural frameworks such as the Microsoft Cloud Adoption Framework (CAF) and Zero Trust. Over time, these two worlds drift apart.
 
-This paper proposes **Architecture as Code (AaC)** as a canonical, machine-readable architecture model that connects architectural intent—requirements, risks, and controls—to implementation and observable evidence. The goal is not to replace existing tooling, but to introduce a missing architectural intelligence layer that enables verification, traceability, and portability of architecture.
+This proposal introduces **Architecture as Code (AaC)** as a canonical, machine-readable architecture model that connects architectural intent—requirements, risks, and controls—to implementation and observable evidence. The goal is not to replace existing tooling, but to introduce a missing architectural intelligence layer that enables verification, traceability, and portability of architecture.
 
 The initial implementation scope focuses deliberately on:
 - CAF and Zero Trust as anchor frameworks
@@ -90,7 +90,9 @@ From the canonical model, multiple artifacts can be derived:
 - coverage and completeness reports
 - implementation scaffolding (future)
 
-Validation aggregates observable evidence upward from implementation to control and risk levels, enabling architecture‑level insight rather than isolated configuration checks.
+Validation aggregates observable evidence upward from implementation to control and risk levels, enabling architecture-level insight rather than isolated configuration checks.
+
+This model introduces explicit validation semantics, enabling deterministic evaluation of architectural state.
 
 ---
 
@@ -113,7 +115,7 @@ To ensure that the model remains canonical and not just “structured YAML,” t
 - A **Requirement** must map to one or more Controls
 - A **Risk** must map to one or more Controls
 - A **Control** may define one or more Constraints
-- A **Control or Constraint** must map to at least one ImplementationMapping within executable scope
+- A **Control** or **Constraint** must map to at least one **ImplementationMapping** within executable scope, or be explicitly marked as external or not yet automated
 - A **ValidationRule** must reference observable Evidence
 
 ### Invariants
@@ -143,6 +145,8 @@ In AaC, requirements are first‑class model elements with explicit verification
 | `control_mapping` | Controls implementing the requirement |
 | `implementation_mapping` | Optional direct linkage |
 
+Requirements are primarily realized through architectural controls; direct implementation mapping is used only where necessary for verification.
+
 ---
 
 ## Evidence and Validation Semantics
@@ -157,9 +161,11 @@ Validation in AaC is evidence‑driven, not configuration‑driven.
 | `source_type` | Terraform state, logs, policy results |
 | `query` | Query or selector for evidence |
 | `evaluation_window` | Time scope for evaluation |
-| `confidence` | Confidence level of evidence |
+| `confidence` | Relative reliability of the evidence source |
 | `last_observed` | Timestamp of last observation |
 | `raw_reference` | Pointer to source data |
+
+Confidence indicates the reliability of the evidence source and may influence validation interpretation.
 
 ### Aggregation Semantics
 
@@ -233,9 +239,9 @@ Terraform state is used as the primary observable source in the initial implemen
 - Evidence: Sign‑in logs, Conditional Access logs
 
 Output:
-- control status
-- risk exposure status
-- coverage report
+- control-level validation results
+- aggregated risk exposure status
+- coverage and completeness report
 
 ---
 
@@ -267,12 +273,13 @@ Initial focus is **model ↔ Terraform consistency**, not generation.
 ## Relationship with Existing Microsoft Capabilities
 
 Azure Policy, Defender for Cloud, and security benchmarks provide enforcement and evaluation.  
-AaC provides **architectural intent, traceability, and aggregation** above them.
+AaC provides **architectural intent, traceability, and aggregation** of validation results above them.
 
 ---
 
 ## Strategic Value
 
+The proposed model enables:
 - Portable architecture as an asset
 - Cross‑organizational handover
 - Subcontractor integration
