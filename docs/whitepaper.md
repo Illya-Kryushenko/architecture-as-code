@@ -8,6 +8,14 @@
 
 ---
 
+## License
+
+This document is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+You are free to share and adapt this material for any purpose, including commercial use, provided appropriate attribution is given.
+
+___
+
 ## Executive Summary
 
 Modern cloud environments rely heavily on Infrastructure as Code (IaC) to define and deploy systems with precision. At the same time, architectural intent, risk considerations, and compliance obligations are documented separately through architectural frameworks such as the Microsoft Cloud Adoption Framework (CAF) and Zero Trust. Over time, these two worlds drift apart.
