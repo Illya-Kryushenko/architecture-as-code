@@ -220,3 +220,10 @@ Contributions may include:
 
 - [**Concept**](docs/concept.md) — brief introduction to Architecture as Code  
 - [**Whitepaper**](docs/whitepaper.md) — full concept, validation semantics, requirement-first approach
+
+## License
+
+- ✅ Code: MIT License
+- ✅ Documentation & Whitepaper: Creative Commons Attribution 4.0 (CC BY 4.0)
+
+See [LICENSE](./LICENSE) and [LICENSE-DOCS](./LICENSE-DOCS) for details.
